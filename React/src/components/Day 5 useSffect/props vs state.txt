@@ -1,0 +1,9 @@
+                        Props                                          State
+1.Transfer data from one componenet to another                 1.It is componenet memory . [managing component-specific data]
+2.It is Immutable                                              2. It is Mutable and can be updated using setState function
+3.passed down parent to child and read-only within             3.Accessible within componenet.
+  child compoenent.
+4.Props can be used to customize the behavior or appearance    4.state is used to keep track of information that can change over 
+ of a component.                                                  time.
+
+  

@@ -1,0 +1,16 @@
+File struture 
+Installitation
+Node js
+React , why used react , History, Angular 
+advantages 
+
+
+#Structure 
+images folder in public 
+Login folder, in src
+all folders
+
+
+React class
+React class and life cycle
+lifecycle class and method 

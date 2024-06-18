@@ -1,0 +1,63 @@
+React Routing => AllRoute file  seperate 
+React securing routing  (procted ) => project and auth-react folder
+
+
+Router, Link , Route 
+
+Link :- alterbate of <a> tag 
+NavLink :- provide extrat feature  isActive ,isPending
+
+callback in NavLink [isActive]
+
+React Outlet:- give space to render the child component
+
+useParams
+useLocation 
+useNavigator
+useSearchQuery
+
+<Rute
+Loader => can write Api />
+
+🚨🚨🚨🚨🚨🚨 useParams 🚨🚨🚨🚨🚨🚨
+=> Dynamic routes allow you to create paths that can match a variety of URLs. 
+=> URL parameters are tokens in the dynamic route path that start with a colon (:) and match a URL segment.
+=> when one page having many user instead of create page for evry user we change details dynamic on page
+=> useParams has to be used within a route with a path that has a dynamic parameter. 
+=>If useParams() is executed outside of the route, it will return an empty object.
+
+   <Route to="/user/:userId" element={<User/>}>
+
+const params=useParams();
+const {name}=params();
+
+=> In the example above, :userId is a URL parameter that will match any value in its place, 
+allowing the User component to render with the corresponding user ID.
+
+🚨🚨🚨🚨🚨🚨 useLocation 🚨🚨🚨🚨🚨🚨
+=> To access the current URL in a React application, React Router provides several hooks and components.
+=> One of the most commonly used hooks is useLocation.
+=> returns a location object that contains information about the current URL [URL ,Path , search and hash ].
+
+- pathname: A string representing the path of the current URL.
+- search: A string representing the query string of the current URL. return search after writing ? in URL
+- hash: A string representing the hash fragment of the current URL.
+- state: An object representing the state of the current URL, which can be used to pass data between routes.
+
+
+🚨🚨🚨🚨🚨🚨 Absolute vs Relative Pathn🚨🚨🚨🚨🚨🚨
+Key Differences
+Starting Character:
+
+Absolute Path: Always starts with a /.
+Relative Path: Does not start with a /.
+Resolution Context:
+
+Absolute Path: Resolved from the root of the application.
+Relative Path: Resolved from the current route's location.
+Use Case:
+
+Absolute Path: Use when you want to navigate to a specific route regardless of the current location.
+Relative Path: Use when you want to navigate relative to the current route, especially useful in nested routes.
+
+https://chatgpt.com/share/5bc0e1c2-2e75-4554-a8d3-2e257ed51a24

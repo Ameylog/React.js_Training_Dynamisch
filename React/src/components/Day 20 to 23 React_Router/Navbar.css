@@ -1,0 +1,15 @@
+#profileSection:hover #profileMenu {
+    display: block;
+}
+
+#profileSection.active {
+    color: black
+}
+#profileSection{
+    text-decoration: none;
+    color: white;
+}
+
+#profileMenu{
+    display:none;
+}

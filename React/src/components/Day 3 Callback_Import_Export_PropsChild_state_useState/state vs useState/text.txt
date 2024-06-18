@@ -1,0 +1,8 @@
+# State 
+
+state is component's memory
+state in class prevent its previous state
+state in functional component cannot prevent previous state
+That need to use destructuring to copy previous state 
+  Ex:  setState([...obj,name:"Amol"]) 
+  

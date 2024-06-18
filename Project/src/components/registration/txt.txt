@@ -1,0 +1,613 @@
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import "./Registration.css";
+import { Link, useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { Users } from "../../App.js";
+import { useFormik } from 'formik';
+import * as Yup from "yup";
+import InputField from './InputField';
+import ErrorMessage from './ErrorMessage';
+
+function Registration() {
+  const { setSampleData, sampleData } = useContext(Users);
+  const navigate = useNavigate();
+
+  const formik = useFormik({
+    initialValues: {
+      fname: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+      gender: "",
+      dob: '',
+      mob: '',
+      country: "",
+      interests: [],
+      file: "",
+    },
+
+    validationSchema: Yup.object({
+      fname: Yup.string()
+        .max(15, "Must be 15 characters or less")
+        .matches(/^[a-zA-Z][a-zA-Z\s]*$/, "Invalid name")
+        .required("Name is required"),
+
+      email: Yup.string().max(300)
+        .email("Invalid email address")
+        .matches(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i, "Invalid email address")
+        .test('email exists', 'Email Already Exist', function (value) {
+          const email = value;
+          if (sampleData.length > 0) {
+            const exitedRecordIndex = sampleData.findIndex(record => record.email === email);
+            if (exitedRecordIndex !== -1) {
+              // Email already exists
+              return false;
+            }
+          }
+          return true; // Email doesn't exist
+        })
+        .required("Email is required"),
+
+      password: Yup.string()
+        .min(8, "Must be at least 8 characters")
+        .max(16, "Must be less than 16 characters")
+        .matches(/[!@#$%^&*(),.?":{}|<>]/, "Must contain at least one special character")
+        .matches(/[0-9]/, "Must contain at least one number")
+        .matches(/[A-Z]/, "Must contain at least one uppercase letter")
+        .matches(/[a-z]/, "Must contain at least one lowercase letter")
+        .required("Password is required"),
+
+      confirmPassword: Yup.string()
+        .min(8, "Must be at least 8 characters")
+        .max(16, "Must be less than 16 characters")
+        .matches(/[!@#$%^&*(),.?":{}|<>]/, "Must contain at least one special character")
+        .matches(/[0-9]/, "Must contain at least one number")
+        .matches(/[A-Z]/, "Must contain at least one uppercase letter")
+        .matches(/[a-z]/, "Must contain at least one lowercase letter")
+        .oneOf([Yup.ref('password')], 'Passwords must match')
+        .required("Confirm password is required"),
+
+      gender: Yup.string()
+        .oneOf(['male', 'female'], "Gender is required")
+        .required("Gender is required"),
+
+      dob: Yup.date()
+        .max(new Date().toISOString().split("T")[0], "Must be up to today")
+        .required("Date of birth is required"),
+
+      mob: Yup.string()
+        .matches(/^\d{10}$/, "Must be 10 digits")
+        .required("Mobile number is required"),
+
+      country: Yup.string()
+        .required("Select the country"),
+
+      interests: Yup.array()
+        .min(1, "Select at least one")
+        .required("Interest is required"),
+
+      file: Yup.mixed()
+        .required('File is required')
+    }),
+
+    onSubmit: (values, { resetForm }) => {
+      const { fname, email, password, gender, mob, interests, country, dob, file } = values;
+      const exitedRecordIndex = sampleData.findIndex(record => record?.email === email);
+
+      if (exitedRecordIndex !== -1) {
+        toast.warning("Email already exists", {
+          position: "top-center",
+        });
+      } else {
+        setSampleData([...sampleData, { ...values }]);
+        toast.success("Registration successful", {
+          position: "top-center",
+        });
+
+        resetForm();
+        return navigate("/");
+      }
+    }
+  });
+
+  const fnameInput = useRef();
+
+  const [passwordEye, setPasswordEye] = useState("password");
+  const [cnfpasswordEye, setCnfPasswordEye] = useState("password");
+
+  useEffect(() => {
+    fnameInput.current.focus();
+  }, []);
+
+  const togglePasswordVisibility = (eyeType, setEyeType) => {
+    setEyeType(eyeType === "password" ? "text" : "password");
+  };
+
+  const style1 = {
+    marginTop: "4px", marginBottom: "10px", width: "80%", padding: "5px"
+  };
+
+  return (
+    <div className='d-flex justify-content-center mt-3'>
+      <ToastContainer />
+      <div className='col-sm-3 col-md-3 col-lg-4 border bg-white shadow pb-3'>
+        <form action="" onSubmit={(e) => formik.handleSubmit(e)} onReset={formik.handleReset} className='ms-5 registerForm'>
+          <h3 className='mb-2 pt-3 me-4 text-center'>Signup</h3>
+          <div style={{ marginLeft: "18px", marginTop: "5px" }}>
+
+            <InputField
+              label="Name*"
+              id="fname"
+              name="fname"
+              type="text"
+              value={formik.values.fname}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              placeholder='Enter a name'
+              ref={fnameInput}
+              style={style1}
+            />
+            <ErrorMessage touched={formik.touched.fname} error={formik.errors.fname} />
+
+            <InputField
+              label="Email*"
+              id="email"
+              name="email"
+              type="email"
+              value={formik.values.email}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              placeholder='abcd@example.com'
+              style={style1}
+            />
+            <ErrorMessage touched={formik.touched.email} error={formik.errors.email} />
+
+            <InputField
+              label="Password*"
+              id="password"
+              name="password"
+              type={passwordEye}
+              value={formik.values.password}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              placeholder='Enter password'
+              style={style1}
+              toggleVisibility={() => togglePasswordVisibility(passwordEye, setPasswordEye)}
+              eyeType={passwordEye}
+              withEyeIcon={true}
+            />
+            <ErrorMessage touched={formik.touched.password} error={formik.errors.password} />
+
+            <InputField
+              label="Confirm Password*"
+              id="confirmPassword"
+              name="confirmPassword"
+              type={cnfpasswordEye}
+              value={formik.values.confirmPassword}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              placeholder='Enter confirm Password'
+              style={style1}
+              toggleVisibility={() => togglePasswordVisibility(cnfpasswordEye, setCnfPasswordEye)}
+              eyeType={cnfpasswordEye}
+              withEyeIcon={true}
+            />
+            <ErrorMessage touched={formik.touched.confirmPassword} error={formik.errors.confirmPassword} />
+
+            <div>
+              <label htmlFor="gender">Gender*</label><br />
+              <input
+                type="radio"
+                name="gender"
+                value="male"
+                id="male"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                style={{ marginLeft: "5px" }}
+              />
+              <label htmlFor="male" style={{ marginRight: "10px" }}>Male</label>
+
+              <input
+                type="radio"
+                name="gender"
+                value="female"
+                id="female"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                style={{ marginLeft: "5px" }}
+              />
+              <label htmlFor="female">Female</label>
+            </div>
+            <ErrorMessage touched={formik.touched.gender} error={formik.errors.gender} />
+
+            <InputField
+              label="Date Of Birth*"
+              id="dob"
+              name="dob"
+              type="date"
+              value={formik.values.dob}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              style={style1}
+            />
+            <ErrorMessage touched={formik.touched.dob} error={formik.errors.dob} />
+
+            <InputField
+              label="Mobile Number*"
+              id="mob"
+              name="mob"
+              type="tel"
+              value={formik.values.mob}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              placeholder='Enter mobile number'
+              style={style1}
+            />
+            <ErrorMessage touched={formik.touched.mob} error={formik.errors.mob} />
+
+            <div>
+              <label htmlFor="country">Country*</label><br />
+              <select
+                name="country"
+                id="country"
+                value={formik.values.country}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                style={style1}
+              >
+                <option value="">Select a country</option>
+                <option value="India">India</option>
+                <option value="Australia">Australia</option>
+                <option value="Russia">Russia</option>
+              </select>
+            </div>
+            <ErrorMessage touched={formik.touched.country} error={formik.errors.country} />
+
+            <div>
+              <label htmlFor="interests">Interest*</label><br />
+              <input
+                type="checkbox"
+                name="interests"
+                value="Cricket"
+                id="cricket"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+              />
+              <label htmlFor="cricket" style={{ marginRight: "10px" }}>Cricket</label>
+
+              <input
+                type="checkbox"
+                name="interests"
+                value="Football"
+                id="football"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+              />
+              <label htmlFor="football" style={{ marginRight: "10px" }}>Football</label>
+
+              <input
+                type="checkbox"
+                name="interests"
+                value="Hockey"
+                id="hockey"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+              />
+              <label htmlFor="hockey" style={{ marginRight: "10px" }}>Hockey</label>
+
+              <input
+                type="checkbox"
+                name="interests"
+                value="Chess"
+                id="chess"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+              />
+              <label htmlFor="chess">Chess</label>
+            </div>
+            <ErrorMessage touched={formik.touched.interests} error={formik.errors.interests} />
+
+            <InputField
+              label="Upload a File*"
+              id="file"
+              name="file"
+              type="file"
+              onChange={(event) => {
+                formik.setFieldValue("file", event.currentTarget.files[0]);
+              }}
+              onBlur={formik.handleBlur}
+              style={style1}
+            />
+            <ErrorMessage touched={formik.touched.file} error={formik.errors.file} />
+
+            <button type="submit" className='btn btn-success mt-3 ms-5'>Register</button><br />
+            <button type="reset" className='btn btn-danger mt-3 ms-5'>Reset</button><br />
+            <small className='ms-5'>Already have an account?</small><br />
+            <Link to="/" className='ms-5'>Login</Link>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+}
+
+export default Registration;
+
+
+/////////////////////// Old Registartion //////////////////////////////////////////
+
+<div className='d-flex justify-content-center mt-3'>
+            <ToastContainer />
+            <div className=' col-sm-3 col-md-3 col-lg-4 border bg-white shadow pb-3' >
+
+                <form action="" onSubmit={(e) => formik.handleSubmit(e)} onReset={formik.handleReset}
+
+                    className='ms-5 registerForm ' >
+
+                    <h3 className=' mb-2 pt-3 me-4 text-center'>Signup</h3>
+
+                    <div style={{ marginLeft: "18px", marginTop: "5px" }} >
+
+                        {/* First Name */}
+                        <label htmlFor="fname">Name*</label>
+                        <div>
+                            <input type="text"
+                                id='fname'
+                                name="fname"
+                                onChange={formik.handleChange}
+                                placeholder='Enter a name'
+                                style={style1}
+                                value={formik.fname}
+                                onBlur={formik.handleBlur}
+                                ref={fnameInput}
+                            />
+
+                            <div className="error_box">
+                                {formik.touched.fname && formik.errors?.fname && <small className="error">{formik.errors?.fname}</small>}
+                            </div>
+                        </div>
+
+                        {/* Email */}
+                        <label htmlFor="email" >Email*</label>
+                        <div>
+                            <input type="email"
+                                id="email" name='email'
+                                onChange={formik.handleChange}
+                                placeholder='abcd@example.com'
+                                style={style1}
+                                onBlur={formik.handleBlur}
+                                value={formik.email}
+
+                            />
+
+                            <div className="error_box">
+                                {formik.touched.email && formik.errors?.email && <small className="error">{formik.errors?.email}</small>}
+                            </div>
+                        </div>
+
+                        {/* Password */}
+                        <div>
+                            <label htmlFor="password">Password*</label><br />
+                            <input type={passwordEye}
+                                id='password'
+                                name="password"
+                                onChange={formik.handleChange} placeholder='Enter password'
+                                style={style1}
+                                onBlur={formik.handleBlur}
+                                value={formik.password}
+
+                            />
+                            <span style={{ position: "absolute", transform: "translateX(-23px)" }}>
+                                {passwordEye === "password" ?
+                                    <FaEyeSlash onClick={() => togglePasswordVisibility(passwordEye, setPasswordEye)} style={{ height: "3em" }} />
+                                    :
+                                    <FaEye onClick={() => togglePasswordVisibility(passwordEye, setPasswordEye)} style={{ height: "3em" }} />
+                                }
+                            </span>
+
+                            <div className="error_box">
+                                {formik.touched.password && formik.errors?.password && <small className="error">{formik.errors?.password}</small>}
+                            </div>
+                        </div>
+
+                        {/* confirm password */}
+                        <div>
+                            <label htmlFor="confirmPassword">Confirm Password*</label>
+                            <input type={cnfpasswordEye}
+                                id="confirmPassword"
+                                name="confirmPassword"
+                                onChange={formik.handleChange} placeholder='Enter confirm Password'
+                                style={style1}
+                                onBlur={formik.handleBlur}
+                                value={formik.confirmPassword}
+
+                            />
+                            <span style={{ position: "absolute", transform: "translateX(-23px)" }}>
+                                {cnfpasswordEye === "password" ?
+                                    <FaEyeSlash onClick={() => togglePasswordVisibility(cnfpasswordEye, setCnfPasswordEye)} style={{ height: "3em" }} />
+                                    :
+                                    <FaEye onClick={() => togglePasswordVisibility(cnfpasswordEye, setCnfPasswordEye)} style={{ height: "3em" }} />
+                                }
+                            </span>
+
+                            <div className="error_box">
+                                {formik.touched.confirmPassword && formik.errors.confirmPassword && <small className="error">{formik.errors.confirmPassword}</small>}
+                            </div>
+                        </div>
+
+                        {/* Gender */}
+                        <div>
+                            <label htmlFor="gender">Gender*</label>
+                            <input
+                                type="radio"
+                                name="gender"
+                                value="male"
+                                id="male"
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                style={{ marginLeft: "10px" }} />
+                            <label htmlFor="male" style={{ marginLeft: "10px" }}>Male</label>
+
+                            <input
+                                type="radio"
+                                name="gender"
+                                value="female"
+                                id="gender"
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                style={{ marginLeft: "10px" }} />
+                            <label htmlFor="female" style={{ marginLeft: "10px" }}>Female</label>
+
+                            <div className="error_box">
+                                {formik.touched.gender && formik.errors.gender ? <small style={{ color: "red" }}>{formik.errors.gender}</small> : null}
+                            </div>
+                        </div>
+
+                        {/* Dob */}
+                        <div>
+                            <label htmlFor="dob" style={{ marginRight: "9vw" }}>Date of Birth*</label><br />
+
+                            <input
+                                type="date"
+                                id="dob"
+                                name='dob'
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                value={formik.values.dob}
+                                style={style1}
+                            />
+                            {formik.touched.dob && formik.errors.dob ? <div style={{ color: "red" }}>{formik.errors.dob}</div> : null}
+                        </div>
+
+                        {/* mobile No */}
+                        <div>
+                            <label htmlFor="mob" style={{ marginRight: "10vw" }}>Mobile No*</label> <br />
+                            <input
+                                type="number"
+                                id="mob"
+                                name='mob'
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                value={formik.values.mob}
+                                style={style1}
+                                placeholder="Enter your mobile number"
+                            />
+
+                            <div className="error_box">
+                                {formik.touched.mob && formik.errors.mob ? <small style={{ color: "red" }}>{formik.errors.mob}</small> : null}
+                            </div>
+                        </div>
+
+                        {/* dropdown country */}
+                        <div>
+                            <label htmlFor="country">Country*</label><br />
+                            <select
+                                id="country"
+                                name="country"
+                                onChange={formik.handleChange}
+                                value={formik.values.country}
+                                onBlur={formik.handleBlur}
+                                style={style1}>
+
+                                <option value="">Select Country</option>
+                                <option value="India">India</option>
+                                <option value="USA">United States</option>
+                                <option value="UK">United Kingdom</option>
+                                <option value="Canada">Canada</option>
+
+                            </select>
+
+                            {formik.touched.country && formik.errors.country ? <div style={{ color: "red" }}>{formik.errors.country}</div> : null}
+                        </div>
+
+                        {/* Interest */}
+                        <div>
+                            <label>Interested Products* </label> <br />
+                            <label>
+                                <input
+                                    type="checkbox"
+                                    name="interests"
+                                    value="Electronics"
+                                    checked={formik.values.interests.includes('Electronics')}
+                                    onChange={formik.handleChange}
+                                    className='ms-2'
+                                />
+                                Electronics
+                            </label> <br />
+                            <label>
+                                <input
+                                    type="checkbox"
+                                    name="interests"
+                                    value="Furniture"
+                                    checked={formik.values.interests.includes('Furniture')}
+                                    onChange={formik.handleChange}
+                                    className='ms-2'
+                                />
+                                Furniture
+                            </label> <br />
+                            <label>
+                                <input
+                                    type="checkbox"
+                                    name="interests"
+                                    value="Beauty Products"
+                                    checked={formik.values.interests.includes('Beauty Products')}
+                                    onChange={formik.handleChange}
+                                    className='ms-2'
+                                />
+                                Beauty Products
+                            </label>
+                            <div className="error_box">
+                                {formik.touched.interests && formik.errors.interests ? <div style={{ color: "red" }}>{formik.errors.interests}</div> : null}
+                            </div>
+                        </div>
+
+                        {/* File */}
+                        <div>
+                            <label htmlFor="file">Upload File</label><br />
+                            <input
+                                id="file"
+                                name="file"
+                                type="file"
+                                style={style1}
+                                onChange={(event) => {
+                                    const file = event.currentTarget.files[0];
+                                    const reader = new FileReader();
+                                    reader.onloadend = () => {
+                                        // formik.setFieldValue('file', file);
+                                        formik.setFieldValue('file', reader.result);
+                                
+                                    };
+                                    reader.readAsDataURL(file);
+
+                                }}
+                            />
+                            {formik.touched.file && formik.errors.file ? <div style={{ color: "red" }}>{formik.errors.file}</div> : null}
+                        </div>
+
+                        {/* buttons */}
+                        <div className='mt-3 ms-2'>
+                            <button
+                                type='submit'
+                                className='btn btn-success text-white border-0 mb-3 py-2 px-5 mx-2 rounded'>
+                                Submit
+                            </button>
+
+                            <button
+                                type='reset'
+                                className='btn btn-warning border-0 mb-2 mx-5 py-2 px-5 rounded text-white'>
+                                Reset
+                            </button>
+
+                            <div className='ms-4'>
+                                <small style={{ marginLeft: "40px", marginTop: "10px" }}>Already have account? <Link to="/login" style={{ textDecoration: "none" }}>Login</Link></small>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+
+
+
+            </div>
+        </div>

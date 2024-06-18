@@ -1,0 +1,57 @@
+
+🚨🚨🚨 Status Code 🚨🚨🚨
+
+👉 Informational responses (100 – 199)
+
+👉 Successful responses (200 – 299)
+    200 OK
+    201 Created  [post , put]
+    202 Accepted 
+    203 Non-Authoritative Information
+    204 No Content
+
+👉 Redirection messages (300 – 399)
+    301 Moved Permanently
+    302 Found
+    307 Temporary Redirect
+    308 Permanent Redirect
+
+👉 Client error responses (400 – 499)
+    400 Bad Request
+    401 Unauthorized
+    402 Payment Required
+    403 Forbidden
+    404 Not Found
+      
+👉 Server error responses (500 – 599)
+    500 Internal Server Error
+    501 Not Implemented
+    502 Bad Gateway
+    503 Service Unavailable
+
+
+🚨🚨🚨 API 🚨🚨🚨
+👉 API stands for Application Programming Interface. 
+
+👉 In the context of APIs, the word Application refers to any software   with a distinct function. Interface can be thought of as a contract of service between two applications.
+
+👉 This contract defines how the two communicate with each other using requests and responses.
+
+#### Types of API'
+SOAP APIs     [Simple Object Access Protocol]  use XML
+RPC APIs      [Remote Procedure Calls]
+Websocket APIs 
+REST APIs     [Representational State Transfer]
+
+
+####### Axios  ####### 
+
+It has good defaults to work with JSON data. Unlike alternatives such as the Fetch API, you often don't need to set your headers. Or perform tedious tasks like converting your request body to a JSON string.
+
+Axios has function names that match any HTTP methods. To perform a GET request, you use the .get() method.
+
+Axios does more with less code. Unlike the Fetch API, you only need one .then() callback to access your requested JSON data.
+
+Axios has better error handling. Axios throws 400 and 500 range errors for you. Unlike the Fetch API, where you have to check the status code and throw the error yourself.
+
+Axios can be used on the server as well as the client. If you are writing a Node.js application, be aware that Axios can also be used in an environment separate from the browser.

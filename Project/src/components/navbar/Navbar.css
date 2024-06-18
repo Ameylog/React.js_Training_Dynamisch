@@ -1,0 +1,28 @@
+/* .checkActive li.active{
+    color: aquamarine;
+
+} */
+
+
+
+/* .checkActive ul li a.active{
+    color: rgb(255, 127, 127);
+
+} */
+
+/* nav ul li a.active */
+
+.truncate-text {
+    height: 10vh;
+    /* Set maximum height */
+    overflow: hidden;
+    /* Hide overflowed content */
+    text-overflow: ellipsis;
+    /* Display ellipsis for overflowed text */
+    /* Ensure only three lines of text are visible */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+   
+}
+

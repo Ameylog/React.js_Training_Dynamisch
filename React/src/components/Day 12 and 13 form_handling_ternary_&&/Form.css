@@ -1,0 +1,83 @@
+/* @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css'); */
+
+/* @import url('https://cdn.jsdelivr.net/npm/react-icons@5.1.0/lib/iconContext.min.js'); */
+
+#formValidation .main_div{
+    box-sizing: border-box;
+    /* border: 1px solid black ; */
+    width: 30%;
+    padding: 20px;
+    margin: 20px auto;
+    box-shadow:50px;
+    border-radius: 2%;
+    border: 1px solid white;
+    background-color: white;
+
+}
+
+body{
+    background-color: rgb(234, 231, 231);
+}
+
+#formValidation form h3{
+        margin-bottom: 4%;
+}
+
+.component{
+    margin-bottom: 30px;
+}
+
+#formValidation .error{
+    color:red;
+    position: absolute;
+    /* margin-left: 8%; */
+}
+
+#formValidation .error_box{
+    margin-bottom: 2vh;
+    margin-right: 6vw;
+    
+}
+
+#formValidation button[type="submit"]{
+    border-radius: 7%;
+    border: none;
+    background-color: green;
+
+    color: white;
+    padding:7px;
+
+}
+#formValidation button[type="reset"]{
+    border-radius: 7%;
+    border: none;
+    background-color: red;
+
+    color: white;
+    padding:7px 12px;
+    margin-left: 20px;
+
+
+}
+
+#formValidation table tr th td{
+    padding: 10px;
+    border:1px solid black;
+    margin-left: 10px;
+}
+
+#formValidation .table_data{
+    margin-left: 19vw;
+    margin-bottom: 3%;
+}
+
+#formValidation .table_data th{
+    padding:10px 20px;
+    border: 1px solid black;
+}
+
+#formValidation .table_data tr td{
+    border: 1px solid black;
+    
+}
+

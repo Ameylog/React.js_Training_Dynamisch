@@ -1,0 +1,44 @@
+https://www.freecodecamp.org/news/context-api-in-react/
+
+🚨🚨  Why use Context Api  🚨🚨
+👉 The Problem with Passing Props [props Drilling].
+👉 To solve problem of props drilling and manage state globally used contextApi.
+👉 We can use redux for gloabal state mangement.
+
+👉 use ContextApi provider component store in component object in heap  memory along with there global state in javascript. 
+
+👉 vitual DOM is store in heap memory in the form of object.
+
+👉 When you use state in a functional component (as done in the Context Provider), React manages the state using JavaScript objects and closures. These objects and closures are stored in memory, which is part of the browser's runtime environment.
+
+👉 we can pass variable, function in createContext
+
+🚨🚨  Two main Componenent 🚨🚨
+1.Context Provider
+2.Context Consumer.
+
+
+🚨🚨  Implemention of Context Api  🚨🚨
+👉 Create a Context Object.
+👉 Wrap Components with a Provider 
+   (give context to all react App the wrap App file inside provider component).
+👉 Consume the Context
+
+🚨🚨🚨  Use Cases of contextApi 🚨🚨🚨
+👉 Theming 
+    [ apply dark or light theme all component].
+
+👉 User Autherication
+    [user's authentication status and pass it down to all the components that need it].
+
+👉 Multilingual Support 
+    [store current Language ].
+
+👉 Accessing data from external sources 
+   [context Api ro store dataa retrived].
+
+🚨🚨🚨 Best Practices for Context API 🚨🚨🚨
+👉 Use a separate file to define your Context.
+👉 Keep Context API limited to global state management only.
+👉 Use context providers sparingly.
+👉 Use default values

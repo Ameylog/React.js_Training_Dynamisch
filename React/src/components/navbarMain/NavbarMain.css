@@ -1,0 +1,92 @@
+#mains nav ul li{
+    margin-left:-25px ;
+    color: black;
+    text-align: left;
+    margin-top: 6px;
+    
+    /* padding: 3px 30px; */
+}
+#mains nav ul li a{
+    text-decoration: none;
+    padding:4px 30px;
+    color: black;
+    /* font-size: 1rem; */
+    
+}
+#mains nav ul li a:hover{
+    background-color: rgba(31, 30, 30, 0.733);
+    color: white;
+}
+#mains nav ul li a.active{
+    background-color: rgb(28, 28, 28);
+    color: white;
+}
+#mains nav ul{
+    display: grid;
+    justify-content: space-evenly;
+    overflow: scroll;
+   
+   
+    /* background-color: rgb(241, 239, 239); */
+    background-color: #dcdcda;
+    height:100vh;
+    width: 18vw;
+    padding-top:10px;
+    margin-top: 4px;
+    margin-bottom: 40px;
+    padding-bottom: 50px;
+
+}
+#mains nav ul #dayHeading{
+    text-align: start; 
+    /* font-Size:"large"; */
+    font-Size:1rem;
+    margin-top: 10px;
+    height: 10px;
+    font-weight: 500;
+    
+}
+
+@media screen and (max-width:768px){
+    #mains nav ul #dayHeading{
+        font-Size:0.8rem;
+    }
+    #mains nav ul li a{
+        font-size: small;
+    }
+}
+
+@media screen and (min-width:768px) and (max-width:1024px){
+    #mains nav ul #dayHeading{
+        font-Size:1rem;
+    }
+    #mains nav ul li a{
+        font-size: medium;
+    }
+}
+
+#mains nav{
+   
+    height: 100vh;
+    width: 18vw;
+    position: fixed;
+    top: 50px;
+    left: 0;
+    bottom:30px;
+    overflow-y: hidden;
+    overflow-x: hidden;
+
+}
+
+#mains{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 18px;
+}
+#mains main{
+    overflow-x: hidden;
+    overflow-y: scroll;
+    margin-top:7vh;
+    
+}

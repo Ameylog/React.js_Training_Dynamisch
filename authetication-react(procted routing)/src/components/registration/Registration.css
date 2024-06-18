@@ -1,0 +1,14 @@
+
+
+
+.registerForm .error{
+    color:red;
+    position: absolute;
+    margin-left: 1%;
+}
+
+.registerForm .error_box{
+    margin-bottom: 2vh;
+    margin-right: 6vw;
+    
+}

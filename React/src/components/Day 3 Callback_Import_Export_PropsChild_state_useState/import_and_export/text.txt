@@ -1,0 +1,12 @@
+# Import and Export 
+
+There will be only one deafult component in single file
+Multiple export can be possible in single file by using export function
+If component have not default ther import in { componentName}  
+        Ex:- import {componentName} from "./filenam"
+if component having same file not require to  import
+
+## File name change
+1.change the import path
+2.chanage coponents name inside file.
+3.component and File Name always Capital to differenctiate between Html and jsx componets
