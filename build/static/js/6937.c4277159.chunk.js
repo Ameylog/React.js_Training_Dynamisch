@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkmydemo=self.webpackChunkmydemo||[]).push([[6937],{6937:(e,n,s)=>{s.r(n),s.d(n,{default:()=>l});var c=s(5043),t=s(579);const l=function(){const[e,n]=(0,c.useState)(0),s=(0,c.useCallback)((()=>{n(e+1)}),[e]);return(0,t.jsx)("div",{children:(0,t.jsxs)("div",{children:[(0,t.jsx)("h3",{children:"useCallback Hook "}),(0,t.jsxs)("p",{children:["Count: ",e]}),(0,t.jsx)("button",{onClick:s,children:"Increment Count"})]})})}}}]);
-//# sourceMappingURL=6937.c4277159.chunk.js.map
