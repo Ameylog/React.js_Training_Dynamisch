@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkmydemo=self.webpackChunkmydemo||[]).push([[4276],{4276:(e,n,r)=>{r.r(n),r.d(n,{default:()=>s});var t=r(5043),c=r(579);const s=function(){const[e,n]=(0,t.useState)(0);if(e>6)throw new Error("Counter Limit excced !");return(0,c.jsxs)("div",{children:[(0,c.jsx)("h3",{children:"Counter"}),(0,c.jsxs)("p",{children:[" ",e," "]}),(0,c.jsx)("button",{onClick:()=>n(e+1),children:"Increment"})]})}}}]);
-//# sourceMappingURL=4276.8e1f4b26.chunk.js.map

@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkmydemo=self.webpackChunkmydemo||[]).push([[1786],{1786:(e,n,r)=>{r.r(n),r.d(n,{default:()=>c});var s=r(5043),d=r(579);const c=function(){const[e,n]=(0,s.useState)([1,20,4,5,75]);return(0,d.jsxs)("div",{children:[(0,d.jsx)("h3",{children:"Add Element in Array (spread)"})," ",(0,d.jsx)("br",{}),(0,d.jsxs)("p",{children:["Array:-",e+","," "]}),(0,d.jsxs)("p",{children:["arr:-",e.map((e=>e+","))]}),(0,d.jsx)("button",{onClick:function(){n([...e,45])},children:"Add"})]})}}}]);
-//# sourceMappingURL=1786.6cb03e8b.chunk.js.map
