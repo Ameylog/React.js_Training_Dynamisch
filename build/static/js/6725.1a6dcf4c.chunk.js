@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkmydemo=self.webpackChunkmydemo||[]).push([[6725],{6725:(e,n,r)=>{r.r(n),r.d(n,{default:()=>c});r(5043);var s=r(579);function t(e){let{increment:n,counter:r}=e;return(0,s.jsxs)("div",{children:[(0,s.jsx)("h3",{children:"Props Types and Default Props"}),(0,s.jsxs)("p",{children:["Counter:- ",r]}),(0,s.jsx)("button",{onClick:n,children:"Incremnet"})]})}t.defaultProps={counter:0};const c=t}}]);
+//# sourceMappingURL=6725.1a6dcf4c.chunk.js.map
