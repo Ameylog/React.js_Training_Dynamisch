@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkmydemo=self.webpackChunkmydemo||[]).push([[2620],{2620:(e,n,t)=>{t.r(n),t.d(n,{default:()=>u});t(5043);var c=t(579);const r=function(e){return function(n){return(0,c.jsx)(e,{...n})}};function s(e){return(0,c.jsxs)("div",{className:"text-center",children:[" Hello World, Welcome to ",e.name]})}const u=function(){const e=r(s);return(0,c.jsx)("div",{children:(0,c.jsx)(e,{name:"pune"})})}}}]);
+//# sourceMappingURL=2620.00c95d43.chunk.js.map
